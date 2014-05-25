@@ -6,7 +6,7 @@ package com.inkglobal.exercise.bc.strategies;
 public enum ClockRepresentationStrategy {
 
     /**
-     * Basic Representation.
+     * Simple Representation.
      */
     SIMPLE(new SimpleRepresentationStrategy()),
 

@@ -3,6 +3,7 @@ package com.inkglobal.exercise.bc.time;
 import org.joda.time.DateTime;
 
 /**
+ * Represents a
  * Created by mmonti on 5/24/14.
  */
 public class MidnightTime {

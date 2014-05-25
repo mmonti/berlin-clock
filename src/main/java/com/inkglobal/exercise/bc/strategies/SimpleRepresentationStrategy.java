@@ -8,6 +8,10 @@ import org.slf4j.LoggerFactory;
 import java.util.Date;
 
 /**
+ * Simple Clock Representation Strategy.
+ *
+ *
+ *
  * Created by mmonti on 5/23/14.
  */
 public class SimpleRepresentationStrategy implements RepresentableTime {

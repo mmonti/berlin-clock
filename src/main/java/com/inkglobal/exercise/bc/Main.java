@@ -2,6 +2,8 @@ package com.inkglobal.exercise.bc;
 
 import com.inkglobal.exercise.bc.strategies.ClockRepresentationStrategy;
 import org.apache.commons.cli.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -9,6 +11,8 @@ import java.io.IOException;
  * Created by mmonti on 5/25/14.
  */
 public class Main {
+
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     /**
      *
@@ -42,11 +46,9 @@ public class Main {
             }
 
             final Clock clock = ClockFactory.getInstance(strategy);
-            System.out.println("Processing...");
-            System.out.println("-------------");
-            System.out.println("Input: " + cmd.getOptionValue('i'));
-            System.out.println("Processing Strategy: " + strategy);
-            System.out.println("Output: " + clock.getTimeRepresentation(cmd.getOptionValue('i')));
+            logger.info("Input=[{}]", cmd.getOptionValue('i'));
+            logger.info("Processing Strategy=[{}]", strategy);
+            logger.info("Output=[{}]", clock.getTimeRepresentation(cmd.getOptionValue('i')));
         }
     }
 
