@@ -1,6 +1,9 @@
 package com.inkglobal.exercise.bc;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Range;
+import com.inkglobal.exercise.bc.exceptions.InvalidTimeRangeException;
 import com.inkglobal.exercise.bc.strategies.ClockRepresentationStrategy;
 import com.inkglobal.exercise.bc.strategies.RepresentableTime;
 import org.slf4j.Logger;
@@ -9,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static com.google.common.collect.Iterables.*;
 
 /**
  * Represents a clock abstraction and defines operations to compute time representation.
@@ -19,7 +24,10 @@ public abstract class AbstractClock implements Clock {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractClock.class);
 
+    private static final String CONST_COLON = ":";
+    private static final String CONST_ZERO = "0";
     private static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
+
     private static final SimpleDateFormat formatter = new SimpleDateFormat(DEFAULT_TIME_FORMAT);
 
     private Date time = null;
@@ -55,6 +63,8 @@ public abstract class AbstractClock implements Clock {
             logger.debug("executing getTimeRepresentation[{}]", time);
         }
 
+        checkTimeComponentsRange(time);
+
         try {
             this.time = formatter.parse(time);
 
@@ -66,6 +76,41 @@ public abstract class AbstractClock implements Clock {
             throw new RuntimeException("Error parsing the input time=["+time+"] with the format=["+DEFAULT_TIME_FORMAT+"]");
         }
         return computeRepresentation();
+    }
+
+    /**
+     * Check the range of hour, minute and seconds.
+     * Throws an exception in case that any component of the time is out of range.
+     *
+     * @param time The given time.
+     */
+    private void checkTimeComponentsRange(final String time) {
+        final Iterable<String> decomposedTime = Splitter.on(CONST_COLON).split(time);
+
+        int hours = Integer.valueOf(getFirst(decomposedTime, CONST_ZERO)).intValue();
+        int minutes = Integer.valueOf(get(decomposedTime, 1, CONST_ZERO)).intValue();
+        int seconds = Integer.valueOf(getLast(decomposedTime)).intValue();
+
+        if (!Range.closed(0, 24).contains(hours)) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("Component 'hours' is out of range. Expected=[{} - {}]. Found=[{}]", 0, 24, hours);
+            }
+            throw new InvalidTimeRangeException(hours, 0, 24);
+        }
+
+        if (!Range.closed(0, 59).contains(minutes)) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("Component 'minutes' is out of range. Expected=[{} - {}]. Found=[{}]", 0, 59, minutes);
+            }
+            throw new InvalidTimeRangeException(hours, 0, 59);
+        }
+
+        if (!Range.closed(0, 59).contains(seconds)) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("Component 'seconds' is out of range. Expected=[{} - {}]. Found=[{}]", 0, 59, minutes);
+            }
+            throw new InvalidTimeRangeException(hours, 0, 59);
+        }
     }
 
     /**

@@ -2,6 +2,7 @@ package com.inkglobal.exercise.bc.time.it;
 
 import com.inkglobal.exercise.bc.Clock;
 import com.inkglobal.exercise.bc.ClockFactory;
+import com.inkglobal.exercise.bc.exceptions.InvalidTimeRangeException;
 import com.inkglobal.exercise.bc.strategies.ClockRepresentationStrategy;
 import org.junit.Test;
 
@@ -17,7 +18,12 @@ public class ClockImplITest {
 
     private static final String simpleRepresentation = "23:33:9:0";
     private static final String berlinRepresentation = "O RRRR RRRO YYRYYROOOOO YYYO";
+
     private static final String input = "23:33:09";
+    private static final String invalidInputHours = "25:33:09";
+    private static final String invalidInputMinutes = "21:78:09";
+    private static final String invalidInputSeconds = "18:23:99";
+    private static final String invalidInputNegativeHour = "-18:23:99";
 
     @Test
     public void testInstanceWithBerlinStrategy() throws Exception {
@@ -67,5 +73,33 @@ public class ClockImplITest {
         assertNotNull(berlin);
 
         assertEquals(berlin, berlinRepresentation);
+    }
+
+    @Test(expected = InvalidTimeRangeException.class)
+    public void testCreateInstanceInvalidHourRange() throws Exception {
+        final ClockRepresentationStrategy strategy = SIMPLE;
+        final Clock clock = ClockFactory.getInstance(strategy);
+        clock.getTimeRepresentation(invalidInputHours);
+    }
+
+    @Test(expected = InvalidTimeRangeException.class)
+    public void testCreateInstanceInvalidMinutesRange() throws Exception {
+        final ClockRepresentationStrategy strategy = SIMPLE;
+        final Clock clock = ClockFactory.getInstance(strategy);
+        clock.getTimeRepresentation(invalidInputMinutes);
+    }
+
+    @Test(expected = InvalidTimeRangeException.class)
+    public void testCreateInstanceInvalidSecondsRange() throws Exception {
+        final ClockRepresentationStrategy strategy = SIMPLE;
+        final Clock clock = ClockFactory.getInstance(strategy);
+        clock.getTimeRepresentation(invalidInputSeconds);
+    }
+
+    @Test(expected = InvalidTimeRangeException.class)
+    public void testCreateInstanceInvalidRangeNegativeHours() throws Exception {
+        final ClockRepresentationStrategy strategy = SIMPLE;
+        final Clock clock = ClockFactory.getInstance(strategy);
+        clock.getTimeRepresentation(invalidInputNegativeHour);
     }
 }
