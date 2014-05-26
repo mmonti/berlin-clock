@@ -102,7 +102,7 @@ public class SimpleRepresentationStrategy implements RepresentableTime {
 
     /**
      * Compute the milliseconds representation.
-     * 
+     *
      * @param time to compute the milliseconds.
      * @return String representation of milliseconds
      */
