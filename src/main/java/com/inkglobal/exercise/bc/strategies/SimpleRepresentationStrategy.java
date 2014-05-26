@@ -9,8 +9,7 @@ import java.util.Date;
 
 /**
  * Simple Clock Representation Strategy.
- *
- *
+ * Just returns the input time with the format: HH:m:s
  *
  * Created by mmonti on 5/23/14.
  */
@@ -21,9 +20,10 @@ public class SimpleRepresentationStrategy implements RepresentableTime {
     private static final String COLON = ":";
 
     /**
+     * Compute the time representation.
      *
-     * @param time
-     * @return
+     * @param time to compute.
+     * @return String representation of the given time.
      */
     @Override
     public String computeRepresentation(final Date time) {
@@ -37,9 +37,10 @@ public class SimpleRepresentationStrategy implements RepresentableTime {
     }
 
     /**
+     * Compute the hours representation.
      *
-     * @param time
-     * @return
+     * @param time to compute the hours.
+     * @return String representation of hours.
      */
     @Override
     public String getHoursRepresentation(final Date time) {
@@ -68,9 +69,10 @@ public class SimpleRepresentationStrategy implements RepresentableTime {
     }
 
     /**
+     * Compute the minutes representation.
      *
-     * @param time
-     * @return
+     * @param time to compute the minutes.
+     * @return String representation of minutes
      */
     @Override
     public String getMinutesRepresentation(final Date time) {
@@ -83,9 +85,10 @@ public class SimpleRepresentationStrategy implements RepresentableTime {
     }
 
     /**
+     * Compute the seconds representation.
      *
-     * @param time
-     * @return
+     * @param time to compute the seconds.
+     * @return String representation of seconds.
      */
     @Override
     public String getSecondsRepresentation(final Date time) {
@@ -98,9 +101,10 @@ public class SimpleRepresentationStrategy implements RepresentableTime {
     }
 
     /**
-     *
-     * @param time
-     * @return
+     * Compute the milliseconds representation.
+     * 
+     * @param time to compute the milliseconds.
+     * @return String representation of milliseconds
      */
     @Override
     public String getMillisecondsRepresentation(final Date time) {

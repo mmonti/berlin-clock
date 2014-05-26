@@ -38,9 +38,10 @@ public class BerlinRepresentationStrategy implements RepresentableTime {
     private static final String EMPTY = "";
 
     /**
+     * Compute the time representation.
      *
-     * @param time
-     * @return
+     * @param time to compute.
+     * @return String representation of the given time.
      */
     @Override
     public String computeRepresentation(final Date time) {
@@ -53,9 +54,10 @@ public class BerlinRepresentationStrategy implements RepresentableTime {
     }
 
     /**
+     * Compute the hours representation.
      *
-     * @param time
-     * @return
+     * @param time to compute the hours.
+     * @return String representation of hours.
      */
     @Override
     public String getHoursRepresentation(final Date time) {
@@ -81,8 +83,11 @@ public class BerlinRepresentationStrategy implements RepresentableTime {
             }
         }
 
+        // = Compute the first row.
         buffer.append(Strings.padEnd(Strings.padStart(EMPTY, blocks, RED.charAt(0)), 4, OFF.charAt(0)));
         buffer.append(SPACE);
+
+        // = Compute the second row.
         buffer.append(Strings.padEnd(Strings.padStart(EMPTY, modulus, RED.charAt(0)), 4, OFF.charAt(0)));
 
         if (logger.isDebugEnabled()) {
@@ -93,9 +98,10 @@ public class BerlinRepresentationStrategy implements RepresentableTime {
     }
 
     /**
+     * Compute the minutes representation.
      *
-     * @param time
-     * @return
+     * @param time to compute the minutes.
+     * @return String representation of minutes
      */
     @Override
     public String getMinutesRepresentation(final Date time) {
@@ -105,8 +111,11 @@ public class BerlinRepresentationStrategy implements RepresentableTime {
         int modulus = (minutesOfHour % 5);
 
         final StringBuffer buffer = new StringBuffer();
+
+        // = Compute the first row.
         buffer.append(Strings.padEnd(Strings.padStart(EMPTY, blocks, YELLOW.charAt(0)), 11, OFF.charAt(0)));
         buffer.append(SPACE);
+        // = Compute the second row.
         buffer.append(Strings.padEnd(Strings.padStart(EMPTY, modulus, YELLOW.charAt(0)), 4, OFF.charAt(0)));
 
         if (blocks >= 3) {  // = First quarter.
@@ -127,9 +136,10 @@ public class BerlinRepresentationStrategy implements RepresentableTime {
     }
 
     /**
+     * Compute the seconds representation.
      *
-     * @param time
-     * @return
+     * @param time to compute the seconds.
+     * @return String representation of seconds.
      */
     @Override
     public String getSecondsRepresentation(final Date time) {
@@ -143,9 +153,11 @@ public class BerlinRepresentationStrategy implements RepresentableTime {
     }
 
     /**
+     * This method throws UnsupportedOperationException when its called since Berlin's Clock does not provide
+     * a way to represent milliseconds.
      *
-     * @param time
-     * @return
+     * @param time to compute the milliseconds.
+     * @return String representation of milliseconds
      */
     @Override
     public String getMillisecondsRepresentation(final Date time) {

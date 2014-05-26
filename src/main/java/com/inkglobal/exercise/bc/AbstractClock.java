@@ -27,13 +27,15 @@ public abstract class AbstractClock implements Clock {
     protected RepresentableTime representationStrategy = null;
 
     /**
-     * @param representationStrategy
+     * Defaults constructor.
+     *
+     * @param representableTime Strategy to use.
      */
-    protected AbstractClock(final RepresentableTime representationStrategy) {
+    protected AbstractClock(final RepresentableTime representableTime) {
         if (logger.isDebugEnabled()) {
-            logger.debug("Creating instance with strategy[{}]", representationStrategy.getClass());
+            logger.debug("Creating instance with strategy[{}]", representableTime.getClass());
         }
-        setRepresentationStrategy(representationStrategy);
+        setRepresentationStrategy(representableTime);
     }
 
     /**
@@ -42,8 +44,8 @@ public abstract class AbstractClock implements Clock {
     protected abstract String computeRepresentation();
 
     /**
-     * @param time
-     * @return
+     * @param time input time to represent.
+     * @return String representation time.
      */
     public String getTimeRepresentation(final String time) {
         Preconditions.checkNotNull(time, "time is null");
@@ -67,9 +69,10 @@ public abstract class AbstractClock implements Clock {
     }
 
     /**
+     * Switch the strategy to use with the ClockImpl instance.
      *
-     * @param strategy
-     * @return
+     * @param strategy ClockRepresentationStrategy to use.
+     * @return Clock instance with the new strategy.
      */
     @Override
     public Clock withStrategy(final ClockRepresentationStrategy strategy) {

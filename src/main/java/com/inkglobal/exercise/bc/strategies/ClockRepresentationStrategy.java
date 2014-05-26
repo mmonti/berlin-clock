@@ -15,6 +15,9 @@ public enum ClockRepresentationStrategy {
      */
     BERLIN(new BerlinRepresentationStrategy());
 
+    /**
+     * Strategy.
+     */
     private RepresentableTime representationStrategy;
 
     /**
